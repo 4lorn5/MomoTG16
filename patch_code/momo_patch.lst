@@ -1,0 +1,305 @@
+#[1]   momo_patch.asm
+    3  00:E000            	.incbin	"momobase.pce"
+    4           0000      	.bank $0
+    5                     
+    6                     ;
+    7                     ; Wonder Momo Patches to print function
+    8                     ;
+    9                     
+   10                     
+   11                     ;
+   12           F7C8      PRTCALL		EQU	$F7C8	; print function used in the game
+   13                     				; when calling, the next bytes should be the pointer to the data
+   14                     				; followed by the next instruction
+   15                     
+   16           E5A7      LVL1INTPTR	EQU	$E5A7	; original call to PRTCALL for this message
+   17           E626      LVL1INT		EQU	$E626	; original location of text
+   18           4000      LVL1INT_NEW	EQU	$4000	; new memory location of text
+   19                     
+   20           E792      LVL4INTPTR	EQU	$E792
+   21           E8A3      LVL4INT		EQU	$E8A3
+   22           4200      LVL4INT_NEW	EQU	$4200
+   23                     
+   24           E690      LVL8INTPTR	EQU	$E690
+   25           E72C      LVL8INT		EQU	$E72C
+   26           4400      LVL8INT_NEW	EQU	$4400
+   27                     
+   28           FE21      BLKCONPTR	EQU	$FE21
+   29           FE4E      BLKCON		EQU	$FE4E
+   30           4600      BLKCON_NEW	EQU	$4600
+   31                     
+   32           E196      END1PTR		EQU	$E196
+   33           E35D      END1		EQU	$E35D
+   34           4800      END1_NEW	EQU	$4800
+   35                     
+   36           E1BD      END2PTR		EQU	$E1BD
+   37           E38D      END2		EQU	$E38D
+   38           4A00      END2_NEW	EQU	$4A00
+   39                     
+   40           E1E4      END3PTR		EQU	$E1E4
+   41           E3C4      END3		EQU	$E3C4
+   42           4C00      END3_NEW	EQU	$4C00
+   43                     
+   44           E20B      END4PTR		EQU	$E20B
+   45           E3FE      END4		EQU	$E3FE
+   46           4E00      END4_NEW	EQU	$4E00
+   47                     
+   48           E232      END5PTR		EQU	$E232
+   49           E439      END5		EQU	$E439
+   50           5000      END5_NEW	EQU	$5000
+   51                     
+   52           E259      END6PTR		EQU	$E259
+   53           E48E      END6		EQU	$E48E
+   54           5200      END6_NEW	EQU	$5200
+   55                     
+   56           E280      END7PTR		EQU	$E280
+   57           E4E2      END7		EQU	$E4E2
+   58           5400      END7_NEW	EQU	$5400
+   59                     
+   60           E2A7      END8PTR		EQU	$E2A7
+   61           E538      END8		EQU	$E538
+   62           5600      END8_NEW	EQU	$5600
+   63                     
+   64                     
+   65                     ;
+   66                     ; INT1 vector
+   67                     ;
+   68           FFF8      	.ORG	$FFF8	; interrupt vector needs to point to ne interrupt handler
+   69  00:FFF8  38 E6     	.dw	INT1
+   70                     
+   71                     ;
+   72                     ; patch to force wait for VBlank-type IRQ1
+   73                     ;
+   74                     ; The game has a behaviour of storing a '1' in ZP locaton <$11
+   75                     ; then waiting until it is zero (cleared by interrupt handler)
+   76                     ;
+   77                     ; In this example (the first such call of the game at the title screen),
+   78                     ; we use the value #$20 to signify that <$11 should only be cleared
+   79                     ; at VBLANK, not RCR
+   80           E965      	.ORG	$E965
+   81  00:E965  A9 20     	LDA	#$20
+   82                     
+   83                     ;
+   84                     ; Level 1 Intermission message
+   85                     ;
+   86                     ;
+   87                     ; this is a pattern of code which is repeated for each message
+   88                     ; the comments would be the same for each
+   89                     ;
+   90           E5A7      	.ORG	LVL1INTPTR
+   91  00:E5A7  4C 26 E6  	JMP	LVL1INT		; jump to replacement routine instead of call to PRTCALL
+   92                     
+   93           E626      	.ORG	LVL1INT
+   94  00:E626  43 04     	TMA	#2		; save this MMR value for later
+   95  00:E628  48        	PHA
+   96  00:E629  A9 20     	LDA	#$20		; new text is in BANK #$20
+   97  00:E62B  53 04     	TAM	#2		; and will be referenced in memory between $4000 and $5FFF
+   98  00:E62D  20 C8 F7  	JSR	PRTCALL		; same call as in the past
+   99  00:E630  00 40     	.dw	LVL1INT_NEW	; new pointer
+  100  00:E632  68        	PLA			; restore MMR value
+  101  00:E633  53 04     	TAM	#2
+  102  00:E635  4C AC E5  	JMP	LVL1INTPTR+5	; go back to original code stream
+  103                     
+  104                     ;
+  105                     ; interrupt handler for video interrupts
+  106                     ;
+  107  00:E638  83 20 11  INT1	TST	#$20, <$11	; check if this is a 'special VBLANK' check interval
+  108  00:E63B  D0 06     	BNE	VBLTST		; if yes, go to new code
+  109                     				; otherwise, continue with original code
+  110  00:E63D  2C 00 00  	BIT	$0000		; original IRQ handler is only these three lines (BIT/STZ/RTI)
+  111  00:E640  64 11     INT1OUT	STZ	<$11		; when <$11 is zero, the main program knows a video interrupt occurred
+  112  00:E642  40        	RTI
+  113  00:E643  93 20 00  VBLTST	TST	#$20,$0000	; in this new code, we check whether the video register
+       00:E646  00        
+  114                     				; has the VBLANK flag set (bit at $20 of the video register)
+  115  00:E647  D0 F7     	BNE	INT1OUT		; if not VBLANK, don't clear <$11; otherwise clear it as normal
+  116  00:E649  40        	RTI
+  117                     
+  118                     ;
+  119                     ; Level 4 Intermission message
+  120                     ;
+  121           E792      	.ORG	LVL4INTPTR
+  122  00:E792  4C A3 E8  	JMP	LVL4INT
+  123                     
+  124           E8A3      	.ORG	LVL4INT
+  125  00:E8A3  43 04     	TMA	#2
+  126  00:E8A5  48        	PHA
+  127  00:E8A6  A9 20     	LDA	#$20
+  128  00:E8A8  53 04     	TAM	#2
+  129  00:E8AA  20 C8 F7  	JSR	PRTCALL
+  130  00:E8AD  00 42     	.dw	LVL4INT_NEW
+  131  00:E8AF  68        	PLA
+  132  00:E8B0  53 04     	TAM	#2
+  133  00:E8B2  4C 97 E7  	JMP	LVL4INTPTR+5
+  134                      
+  135                     ;
+  136                     ; Level 8 Intermission message
+  137                     ;
+  138           E690      	.ORG	LVL8INTPTR
+  139  00:E690  4C 2C E7  	JMP	LVL8INT
+  140                     
+  141           E72C      	.ORG	LVL8INT
+  142  00:E72C  43 04     	TMA	#2
+  143  00:E72E  48        	PHA
+  144  00:E72F  A9 20     	LDA	#$20
+  145  00:E731  53 04     	TAM	#2
+  146  00:E733  20 C8 F7  	JSR	PRTCALL
+  147  00:E736  00 44     	.dw	LVL8INT_NEW
+  148  00:E738  68        	PLA
+  149  00:E739  53 04     	TAM	#2
+  150  00:E73B  4C 95 E6  	JMP	LVL8INTPTR+5
+  151                     
+  152                     ;
+  153                     ; Black Congratulatory Intermission message
+  154                     ;
+  155           FE21      	.ORG	BLKCONPTR
+  156  00:FE21  4C 4E FE  	JMP	BLKCON
+  157                     
+  158           FE4E      	.ORG	BLKCON
+  159  00:FE4E  43 04     	TMA	#2
+  160  00:FE50  48        	PHA
+  161  00:FE51  A9 20     	LDA	#$20
+  162  00:FE53  53 04     	TAM	#2
+  163  00:FE55  20 C8 F7  	JSR	PRTCALL
+  164  00:FE58  00 46     	.dw	BLKCON_NEW
+  165  00:FE5A  68        	PLA
+  166  00:FE5B  53 04     	TAM	#2
+  167  00:FE5D  4C 26 FE  	JMP	BLKCONPTR+5
+  168                     
+  169                     ;
+  170                     ; End Card 1 message
+  171                     ;
+  172           E196      	.ORG	END1PTR
+  173  00:E196  4C 5D E3  	JMP	END1
+  174                     
+  175           E35D      	.ORG	END1
+  176  00:E35D  43 04     	TMA	#2
+  177  00:E35F  48        	PHA
+  178  00:E360  A9 20     	LDA	#$20
+  179  00:E362  53 04     	TAM	#2
+  180  00:E364  20 C8 F7  	JSR	PRTCALL
+  181  00:E367  00 48     	.dw	END1_NEW
+  182  00:E369  68        	PLA
+  183  00:E36A  53 04     	TAM	#2
+  184  00:E36C  4C 9B E1  	JMP	END1PTR+5
+  185                     
+  186                     ;
+  187                     ; End Card 2 message
+  188                     ;
+  189           E1BD      	.ORG	END2PTR
+  190  00:E1BD  4C 8D E3  	JMP	END2
+  191                     
+  192           E38D      	.ORG	END2
+  193  00:E38D  43 04     	TMA	#2
+  194  00:E38F  48        	PHA
+  195  00:E390  A9 20     	LDA	#$20
+  196  00:E392  53 04     	TAM	#2
+  197  00:E394  20 C8 F7  	JSR	PRTCALL
+  198  00:E397  00 4A     	.dw	END2_NEW
+  199  00:E399  68        	PLA
+  200  00:E39A  53 04     	TAM	#2
+  201  00:E39C  4C C2 E1  	JMP	END2PTR+5
+  202                     
+  203                     ;
+  204                     ; End Card 3 message
+  205                     ;
+  206           E1E4      	.ORG	END3PTR
+  207  00:E1E4  4C C4 E3  	JMP	END3
+  208                     
+  209           E3C4      	.ORG	END3
+  210  00:E3C4  43 04     	TMA	#2
+  211  00:E3C6  48        	PHA
+  212  00:E3C7  A9 20     	LDA	#$20
+  213  00:E3C9  53 04     	TAM	#2
+  214  00:E3CB  20 C8 F7  	JSR	PRTCALL
+  215  00:E3CE  00 4C     	.dw	END3_NEW
+  216  00:E3D0  68        	PLA
+  217  00:E3D1  53 04     	TAM	#2
+  218  00:E3D3  4C E9 E1  	JMP	END3PTR+5
+  219                     
+  220                     ;
+  221                     ; End Card 4 message
+  222                     ;
+  223           E20B      	.ORG	END4PTR
+  224  00:E20B  4C FE E3  	JMP	END4
+  225                     
+  226           E3FE      	.ORG	END4
+  227  00:E3FE  43 04     	TMA	#2
+  228  00:E400  48        	PHA
+  229  00:E401  A9 20     	LDA	#$20
+  230  00:E403  53 04     	TAM	#2
+  231  00:E405  20 C8 F7  	JSR	PRTCALL
+  232  00:E408  00 4E     	.dw	END4_NEW
+  233  00:E40A  68        	PLA
+  234  00:E40B  53 04     	TAM	#2
+  235  00:E40D  4C 10 E2  	JMP	END4PTR+5
+  236                     
+  237                     ;
+  238                     ; End Card 5 message
+  239                     ;
+  240           E232      	.ORG	END5PTR
+  241  00:E232  4C 39 E4  	JMP	END5
+  242                     
+  243           E439      	.ORG	END5
+  244  00:E439  43 04     	TMA	#2
+  245  00:E43B  48        	PHA
+  246  00:E43C  A9 20     	LDA	#$20
+  247  00:E43E  53 04     	TAM	#2
+  248  00:E440  20 C8 F7  	JSR	PRTCALL
+  249  00:E443  00 50     	.dw	END5_NEW
+  250  00:E445  68        	PLA
+  251  00:E446  53 04     	TAM	#2
+  252  00:E448  4C 37 E2  	JMP	END5PTR+5
+  253                     
+  254                     ;
+  255                     ; End Card 6 message
+  256                     ;
+  257           E259      	.ORG	END6PTR
+  258  00:E259  4C 8E E4  	JMP	END6
+  259                     
+  260           E48E      	.ORG	END6
+  261  00:E48E  43 04     	TMA	#2
+  262  00:E490  48        	PHA
+  263  00:E491  A9 20     	LDA	#$20
+  264  00:E493  53 04     	TAM	#2
+  265  00:E495  20 C8 F7  	JSR	PRTCALL
+  266  00:E498  00 52     	.dw	END6_NEW
+  267  00:E49A  68        	PLA
+  268  00:E49B  53 04     	TAM	#2
+  269  00:E49D  4C 5E E2  	JMP	END6PTR+5
+  270                     
+  271                     ;
+  272                     ; End Card 7 message
+  273                     ;
+  274           E280      	.ORG	END7PTR
+  275  00:E280  4C E2 E4  	JMP	END7
+  276                     
+  277           E4E2      	.ORG	END7
+  278  00:E4E2  43 04     	TMA	#2
+  279  00:E4E4  48        	PHA
+  280  00:E4E5  A9 20     	LDA	#$20
+  281  00:E4E7  53 04     	TAM	#2
+  282  00:E4E9  20 C8 F7  	JSR	PRTCALL
+  283  00:E4EC  00 54     	.dw	END7_NEW
+  284  00:E4EE  68        	PLA
+  285  00:E4EF  53 04     	TAM	#2
+  286  00:E4F1  4C 85 E2  	JMP	END7PTR+5
+  287                     
+  288                     ;
+  289                     ; End Card 8 message
+  290                     ;
+  291           E2A7      	.ORG	END8PTR
+  292  00:E2A7  4C 38 E5  	JMP	END8
+  293                     
+  294           E538      	.ORG	END8
+  295  00:E538  43 04     	TMA	#2
+  296  00:E53A  48        	PHA
+  297  00:E53B  A9 20     	LDA	#$20
+  298  00:E53D  53 04     	TAM	#2
+  299  00:E53F  20 C8 F7  	JSR	PRTCALL
+  300  00:E542  00 56     	.dw	END8_NEW
+  301  00:E544  68        	PLA
+  302  00:E545  53 04     	TAM	#2
+  303  00:E547  4C AC E2  	JMP	END8PTR+5
+  304                     
+  305                     

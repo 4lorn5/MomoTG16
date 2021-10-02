@@ -1,0 +1,5 @@
+*~
+*.pce
+*.swp
+tools/filepatch.o
+tools/filepatch
