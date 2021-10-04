@@ -134,7 +134,7 @@ Background: Black: RGB 0, 0, 0
 Font: Pale Yellow: RGB 240, 240, 128
 ```
 
-Double-click these to edit their values. 
+Double-click these to edit their RGB values. 
 
 ![Test Image 11](https://i.ibb.co/rmzkP1K/8.png)
 
