@@ -133,7 +133,7 @@ Double-click these to edit their values.
 
 Confirm with OK, then Notice the change:
 
-![Test Image 12]https://i.ibb.co/4WcfVqz/9.png
+![Test Image 12](https://i.ibb.co/4WcfVqz/9.png)
 
 If you do this for every color, provided you know which color is representing its in game counterpart, will let you see the tiles as they appear, reducing guesswork. Note that editing the palette entries this way does not affect the game, only how TileMolester loads colors. While it's possible to import palette tables, TileMolester is excessively picky about which formats it accepts, so it's not generally recommended. On the other hand, the program will save palette changes between uses, creating an .xml file named after the file you're editing inside the "resources" folder. 
 
