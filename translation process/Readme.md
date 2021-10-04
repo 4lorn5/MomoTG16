@@ -179,7 +179,8 @@ It draws from the same graphics pointer (07), is carries the same vertical line 
 The original strings only define a short number of lines, an advantage of the Japanese language. For English, or many other languages, it may be necessary to double or triple them. So, while the original made use of these strings for 3 lines, such as:
 
 
-```04 0B 07
+```
+04 0B 07
 04 0C 07
 04 0D 07
 ```
