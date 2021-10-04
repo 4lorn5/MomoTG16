@@ -202,7 +202,7 @@ Notice how each pair references the same line and graphical pointer, but simply 
 
 Originally, Wonder Momo used the value 26 for empty spaces between some words (in our translation, both 26 and 84 can be used interchangeably). If you explore both the original game and our translation and search for the script, you might notice that at certain points, the game declares spaces many times in a row. Why, though? Wouldn't it be more efficient to simply end a line and move on to the next? It would - but the game has a quirk that only becomes noticeable when looking at the ending credits, which is where the large spacing declarations take place. Here are Momo's lines from the first and second ending slides in our translation:
 
-![Test Image 16](https://i.ibb.co/M5J3sQF/1.png)
+![Test Image 16](https://i.ibb.co/Px2ySPQ/02.png)
 
 [Offset 40800]
 
