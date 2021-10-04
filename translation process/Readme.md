@@ -320,7 +320,7 @@ Wonder Momo isn't exactly a hard game, but can become punishing quite fast. Fort
 
 ![Test Image 23](https://i.ibb.co/1RkhLFc/Wonder-Momo-Japan-211004-1615.png)
 
-Once inside the special options menu, these are inputs required:
+Once inside the special options menu, these are the inputs required:
 
 ```
 Set Skip to 00, hold I + II, then press Select : first level cutscene
