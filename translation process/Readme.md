@@ -67,7 +67,9 @@ Hovering the mouse button over any 8x8 tile will display its value on the lower 
 
 correspond to these byte values:
 
+``` 
 5A 6A 41 59 66 95 59 6F 52 6E 4E 65 45 4D 6E 55 5B 45 69 52 41 68 53 
+```
 
 Note the individual diacritic values. As such, while the game presents characters such as ぱ and ぜ as single characters, the code loads these elements separately (は and ゜, せ and ゛, etc.). With a table file now built, it's time to start searching for where the text is stored in the ROM. For that, the HxD hexadecimal editor was used. It's out of the scope of this document to explain the general uses and commands of a hexadecimal editor, as there are too many in existence. Suffice to say, the approach is the same regardless of the choice of program. With the ROM loaded in one such editor, let's search for the string in hex form:
 
