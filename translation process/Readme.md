@@ -29,7 +29,7 @@ In the 8 and 16-bit eras, Konami games almost always used the LZ77 compression a
 
 Fortunately, Wonder Momo is a lot more candid in how it stores information, but still had its fair share of obstacles.
 
-Many games will store their text related code in an orderly fashion from left to right (except Mega Man 7; thanks, Capcom), although even when in possession of the corresponding values, this is not a guarantee that a dialogue string will be immediately found because even the smallest code implementation will never be quite the same.
+Many games will store their text related code in an orderly fashion from left to right (a considerable amount of Mega Man 7 being an exception; thanks, Capcom), although even when in possession of the corresponding values, this is not a guarantee that a dialogue string will be immediately found because even the smallest code implementation will never be quite the same.
 
 Below we can see one of Wonder Momo's level intermissions or cutscenes, right at the end of level 1:
 
