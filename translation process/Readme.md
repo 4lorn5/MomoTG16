@@ -79,9 +79,10 @@ Success. The first line is between offsets 629 and 63F. Before we do anything el
 
 Right before the first line, there are some values: 05 0B 07. Now, looking at the end of the selection, we see something similar: FE 05 0C 07. If we follow the next bit of code, we'll end up with a similar string: FE 05 0D 07. And following up from that, you'll also note a value of FF before more code is displayed. After some testing, the purpose of these values is revealed:
 
+```
 05  0B  07
-
 XX  YY  TP
+```
 
 TP is the tilemap pointer, the value that tells the game in what area it should look to for the correct tiles. Any other value will of course retain the position, but present other tiles. 
 
@@ -121,15 +122,17 @@ There are two approaches when it comes to preparing an workflow for easy editing
 
 1) One is to edit each color individually, which requires a color accurate screenshot of the game, specifically of the area you want to edit. Taking the screenshot of the first cutscene as an example, open it with your favorite graphics editing program (such as Paint.NET, Photoshop, etc.), then use a color dropper to get RGB info from it; in particular, get the RGB values for the dark purple background and the light brown font. You'll get the following values:
 
+```
 Purle: RGB 72, 0, 72
-
 Brown: RGB 207, 154, 124
+```
 
 Now, switch to TileMolester. Notice the colors on display for the Japanese text and background:
 
+```
 Background: Black: RGB 0, 0, 0
-
 Font: Pale Yellow: RGB 240, 240, 128
+```
 
 Double-click these to edit their values. 
 
@@ -175,25 +178,22 @@ It draws from the same graphics pointer (07), is carries the same vertical line 
 
 The original strings only define a short number of lines, an advantage of the Japanese language. For English, or many other languages, it may be necessary to double or triple them. So, while the original made use of these strings for 3 lines, such as:
 
-04 0B 07
 
+```04 0B 07
 04 0C 07
-
 04 0D 07
+```
 
 Our script ended up requiring the following most of the time:
 
+```
 04 0B 07
-
 84 0B 07
-
 04 0C 07
-
 84 0C 07
-
 04 0E 07
-
 84 0F 07
+```
 
 Notice how each pair references the same line and graphical pointer, but simply relocates the text.
 
@@ -205,76 +205,56 @@ Originally, Wonder Momo used the value 26 for empty spaces between some words (i
 
 [Offset 40800]
 
+```
 No way. You were finally
-
 able to make it here.
-
 I really like you,
-
 you know.
+```
 
 Which translates to...
 
+```
 04 0B 07 (Coordinates)
-
 4D 68 84 70 5A 72 90 84 58 68 6E 84 70 5E 6B 5E 84 5F 62 67 5A 65 65 72 (Text) 
-
 FE (Line Break)
-
 84 0B 07 (Coordinates)
-
 5A 5B 65 5E 84 6D 68 84 66 5A 64 5E 84 62 6D 84 61 5E 6B 5E 90 26 26 26 26 26 (Text)
-
 FE (Line Break)
-
 04 0C 07 (Coordinates)
-
 48 84 6B 5E 5A 65 65 72 84 65 62 64 5E 84 72 68 6E 91 26 26 26 26 26 26 26 26 (Text)
-
 FE (Line Break)
-
 84 0C 07 (Coordinates)
-
 72 68 6E 84 64 67 68 70 90 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 (Text)
-
 FF (End Paragraph)
+```
 
 ![Test Image 17](https://i.ibb.co/yfG3xLm/3.png)
 
 [Offset 40A00]
 
+```
 Also, I'm glad.
-
 Since you played together 
-
 with me to the end.
-
+```
 
 Which translates to...
 
+```
 04 0B 07 (Coordinates)
-
 40 65 6C 68 91 84 48 95 66 84 60 65 5A 5D 90 26 26 26 26 26 26 26 26 26 26 26 (Text) 
-
 FE (Line Break)
-
 84 0B 07 (Coordinates)
-
 52 62 67 5C 5E 84 72 68 6E 84 69 65 5A 72 5E 5D 84 6D 68 60 5E 6D 61 5E 6B 26 (Text) 
-
 FE (Line Break)
-
 04 0C 07 (Coordinates)
-
 70 62 6D 61 84 66 5E 84 6D 68 84 6D 61 5E 84 5E 67 5D 90 26 26 26 26 26 26 26 (Text)
-
 FE (Line Break)
-
 84 0C 07 (Coordinates)
-
 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 (Text) 
-
 FF (End Paragraph)
+```
 
 What would happen if we used Line Breaks immediately after a line was finished?
 
@@ -307,6 +287,8 @@ What if it didn't? In cases like this, there are several ways of going about thi
 Here's how it's laid out in the original:
 
 [Offset 22B2]
+
+```
 08 01 21 
 26 26 C0 C1 C4 C5 26 26 CA CB CE CF
 FE 
@@ -322,6 +304,7 @@ FE
 08 03 21 
 F4 F5 26 26 26 26 F6 F7 26 26 F8 26 F9 FA FB 
 FF
+```
 
 Does this look familiar? If it does, then you're paying attention. It uses the same control codes as text: FE for the next line, followed by a string of 3 bytes for coordinates, and then the tile placement code until the next line, and FF for the block's end. Even 26 is repeated as a control code for empty spaces. Our final logo design was made to fit the same space, although it had to be moved one line up. Additionally, we could not place tiles on spaces that would end up becoming reserved for FE and FF, as these conflicted with the control codes:
 
@@ -339,10 +322,12 @@ Wonder Momo isn't exactly a hard game, but can become punishing quite fast. Fort
 
 Once inside the special options menu, these are inputs required:
 
+```
 Set Skip to 00, hold I + II, then press Select : first level cutscene
 Set Skip to 01, hold I + II, then press Select : second level cutscene
 Set Skip to 04, hold I + II, then press Select : third level cutscene
 Set Skip to 0B, hold I + II, then press Select : ending
+```
 
 It was also necessary to playtest the game from start to finish; loading cutscenes in a static way, independent of any supporting code, only gets you so far. For this purpose, the PC Engine emulator Ootake was used, along with an edited memory address (ie., cheat), inserted through CPU > Write Memory... : F82220:255+ . This code grants Momo infinite health. 
 
