@@ -120,11 +120,13 @@ There are two approaches when it comes to preparing an workflow for easy editing
 1) One is to edit each color individually, which requires a color accurate screenshot of the game, specifically of the area you want to edit. Taking the screenshot of the first cutscene as an example, open it with your favorite graphics editing program (such as Paint.NET, Photoshop, etc.), then use a color dropper to get RGB info from it; in particular, get the RGB values for the dark purple background and the light brown font. You'll get the following values:
 
 Purle: RGB 72, 0, 72
+
 Brown: RGB 207, 154, 124
 
 Now, switch to TileMolester. Notice the colors on display for the Japanese text and background:
 
 Background: Black: RGB 0, 0, 0
+
 Font: Pale Yellow: RGB 240, 240, 128
 
 Double-click these to edit their values. 
@@ -200,46 +202,76 @@ Originally, Wonder Momo used the value 26 for empty spaces between some words (i
 ![Test Image 16](https://i.ibb.co/M5J3sQF/1.png)
 
 [Offset 40800]
+
 No way. You were finally
+
 able to make it here.
+
 I really like you,
+
 you know.
 
 Which translates to...
 
 04 0B 07 (Coordinates)
+
 4D 68 84 70 5A 72 90 84 58 68 6E 84 70 5E 6B 5E 84 5F 62 67 5A 65 65 72 (Text) 
+
 FE (Line Break)
+
 84 0B 07 (Coordinates)
+
 5A 5B 65 5E 84 6D 68 84 66 5A 64 5E 84 62 6D 84 61 5E 6B 5E 90 26 26 26 26 26 (Text)
+
 FE (Line Break)
+
 04 0C 07 (Coordinates)
+
 48 84 6B 5E 5A 65 65 72 84 65 62 64 5E 84 72 68 6E 91 26 26 26 26 26 26 26 26 (Text)
+
 FE (Line Break)
+
 84 0C 07 (Coordinates)
+
 72 68 6E 84 64 67 68 70 90 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 (Text)
+
 FF (End Paragraph)
 
 ![Test Image 17](https://i.ibb.co/yfG3xLm/3.png)
 
 [Offset 40A00]
+
 Also, I'm glad.
+
 Since you played together 
+
 with me to the end.
+
 
 Which translates to...
 
 04 0B 07 (Coordinates)
+
 40 65 6C 68 91 84 48 95 66 84 60 65 5A 5D 90 26 26 26 26 26 26 26 26 26 26 26 (Text) 
+
 FE (Line Break)
+
 84 0B 07 (Coordinates)
+
 52 62 67 5C 5E 84 72 68 6E 84 69 65 5A 72 5E 5D 84 6D 68 60 5E 6D 61 5E 6B 26 (Text) 
+
 FE (Line Break)
+
 04 0C 07 (Coordinates)
-70 62 6D 61 84 66 5E 84 6D 68 84 6D 61 5E 84 5E 67 5D 90 26 26 26 26 26 26 26 (Text) 
+
+70 62 6D 61 84 66 5E 84 6D 68 84 6D 61 5E 84 5E 67 5D 90 26 26 26 26 26 26 26 (Text)
+
 FE (Line Break)
+
 84 0C 07 (Coordinates)
+
 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 26 (Text) 
+
 FF (End Paragraph)
 
 What would happen if we used Line Breaks immediately after a line was finished?
