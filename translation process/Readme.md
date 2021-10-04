@@ -61,11 +61,11 @@ So, what does the image viewer shows us? In the BG0 tab, pressing Down or Page D
 
 ![Test Image 5](https://i.ibb.co/7294BHW/3.png)
 
-Hovering the mouse button over any 8x8 tile will display its value on the lower part of the screen; the "Tile" information is the relevant one. At this point, it's possible to start working on a table: a file that declares a character and the corresponding byte value. 40 = あ, 41 = い, 6E = ゛, etc. With this, we now know the values of each character, including those of the dakuten. So, we now also know that this:
+Hovering the mouse button over any 8x8 tile will display its value on the lower part of the screen; the "Tile" information is the relevant one. At this point, it's possible to start working on a table: a file that declares a character and the corresponding byte value. 40 = あ, 41 = い, 6E = ゛, etc. With this, we now know the values of each character, including those of the dakuten. So now, we also know that this:
 
 ひ  ろ  い は  ら  っ  は  ゜  て  ゛  そ  よ  か せ  ゛  に  ふ か  れ  て い  る  と
 
-correspond to these byte values:
+corresponds to these byte values:
 
 ``` 
 5A 6A 41 59 66 95 59 6F 52 6E 4E 65 45 4D 6E 55 5B 45 69 52 41 68 53 
