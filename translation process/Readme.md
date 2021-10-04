@@ -138,7 +138,7 @@ Double-click these to edit their RGB values.
 
 ![Test Image 11](https://i.ibb.co/rmzkP1K/8.png)
 
-Confirm with OK, then Notice the change:
+Confirm with OK, then notice the change:
 
 ![Test Image 12](https://i.ibb.co/4WcfVqz/9.png)
 
