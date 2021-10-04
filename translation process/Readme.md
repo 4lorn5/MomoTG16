@@ -329,7 +329,7 @@ Set Skip to 04, hold I + II, then press Select : third level cutscene
 Set Skip to 0B, hold I + II, then press Select : ending
 ```
 
-It was also necessary to playtest the game from start to finish; loading cutscenes in a static way, independent of any supporting code, only gets you so far. For this purpose, the PC Engine emulator Ootake was used, along with an edited memory address (ie., cheat), inserted through CPU > Write Memory... : F82220:255+ . This code grants Momo infinite health. 
+It was also necessary to playtest the game from start to finish; loading cutscenes in a static way, independent of any supporting code, only gets you so far. For this purpose, the PC Engine emulator Ootake was used, along with an edited memory address (ie., cheat), inserted through CPU > Write Memory... : ```F82220:255+```. This code grants Momo infinite health. 
 
 ## Viva Non Non!
 
