@@ -172,16 +172,23 @@ It draws from the same graphics pointer (07), is carries the same vertical line 
 The original strings only define a short number of lines, an advantage of the Japanese language. For English, or many other languages, it may be necessary to double or triple them. So, while the original made use of these strings for 3 lines, such as:
 
 04 0B 07
+
 04 0C 07
+
 04 0D 07
 
 Our script ended up requiring the following most of the time:
 
 04 0B 07
+
 84 0B 07
+
 04 0C 07
+
 84 0C 07
+
 04 0E 07
+
 84 0F 07
 
 Notice how each pair references the same line and graphical pointer, but simply relocates the text.
