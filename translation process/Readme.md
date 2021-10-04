@@ -270,7 +270,7 @@ Locating the PC Engine version's logo was a two-step process. With TileMolester,
 
 ![Test Image 19](https://i.ibb.co/QHhwwCT/11.png)
 
-It was then thoroughly reworded through a graphics editing program, keeping colors and palette in mind, then reinserted in the ROM:
+It was then thoroughly reworked through a graphics editing program, keeping colors and palette in mind, then reinserted in the ROM:
 
 ![Test Image 1](https://i.ibb.co/4R8J57v/6298screenshot1.png)
 
