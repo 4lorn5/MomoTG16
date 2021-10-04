@@ -83,7 +83,7 @@ XX  YY  TP
 
 TP is the tilemap pointer, the value that tells the game in what area it should look to for the correct tiles. Any other value will of course retain the position, but present other tiles. 
 
-XX is the horizontal position at which the line will be placed on the screen. The very first line begin with a 05; a 04 would move all the text in that line one 8x8 tile back.
+XX is the horizontal position at which the line will be placed on the screen. The very first line begins with a 05; a 04 would move all the text in that line one 8x8 tile back.
 
 YY is the vertical placement of the line. These values range from 00 to 0F. Look at the cutscene image above, look at the distance between each line, and then look at the middle values in the 3-byte string: 0B, 0C and 0D. By default, the game uses double spacing for its text, which limits just how much can be printed on screen at a time - a little nightmare for Western languages. This can be countered, but more on that later.
 
