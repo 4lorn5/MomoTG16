@@ -118,7 +118,7 @@ This way, it's now possible to see how characters and symbols are making use of 
 
 TileMolester and other such programs have preset palettes, which is why the colors on display don't correspond to the colors of the actual game. Depending on the complexity of the graphical data, and number of colors, it might be necessary to adjust them. It's possible to switch between preset palettes by clicking on the large arrows at the bottom of the screen, nestled between the current palette; other methods, such as importing palettes or using palette information from the game itself (provided one knows where that info is on the ROM), are also possible. Users can also edit a color by double-clicking on a color, then choosing the correct color values between swatches, HSV, HSL, RGB and CMYK. Of these, only RGB is important for Wonder Momo. But chances are no preset palette will ever match in game colors.
 
-There are two approaches when it comes to preparing an workflow for easy editing of these tiles.
+There are two approaches when it comes to preparing a workflow for easy editing of these tiles.
 
 1) One is to edit each color individually, which requires a color accurate screenshot of the game, specifically of the area you want to edit. Taking the screenshot of the first cutscene as an example, open it with your favorite graphics editing program (such as Paint.NET, Photoshop, etc.), then use a color dropper to get RGB info from it; in particular, get the RGB values for the dark purple background and the light brown font. You'll get the following values:
 
