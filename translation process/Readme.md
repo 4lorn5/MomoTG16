@@ -260,7 +260,7 @@ What would happen if we used Line Breaks immediately after a line was finished?
 
 ![Test Image 18](https://i.ibb.co/bv2rGKg/2.png)
 
-The game makes use of spacing not only in a linguistic sense, but also to "cover up" the previous slide's text. This isn't a concern on the cutscenes that play between levels, as it only shows one before continuing with the game - but is immediately noticeable on the ending slides. As such, any editing that involved moving lines around required the next slide to take into consideration the previous one.
+The game makes use of spacing not only in a linguistic sense, but also to "cover up" the previous slide's text. This isn't a concern on the cutscenes that play between levels, as it only shows one before continuing with the game - but is immediately noticeable on the ending slides. As such, it was necessary to prolong each line in accordance to the previous one, taking the previous slide in consideration when preparing the next one.
 
 ## A brief note on the logo localization 
 
