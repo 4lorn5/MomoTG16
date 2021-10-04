@@ -7,7 +7,7 @@ Romhacking has evolved in many ways over the last decades, with enthusiasts incr
 
 This, however, doesn't mean that there is a tool for every single videogame ever made. On the contrary, a good portion of ROM editing programs is born from dedicated, laborious studying of a game's original code, something that might take years to fully annotate and compile. Additionally, the more powerful tools are generally reserved for the more appreciated and/or studied games: witness the amount of fan made editing tools available for series such as Castlevania, Mario, Sonic, or Pokémon while many other titles or series' intricacies are still left untapped.
 
-As expected, Namco's Wonder Momo for the PC Engine/Turbografx-16falls into the latter category, without any attempt made to translate it nor any kind of documentation providing insight into its code. Momo is simply one among thousands of games in this situation. Or was, thanks to our translation efforts.
+As expected, Namco's Wonder Momo for the PC Engine/Turbografx-16 falls into the latter category, without any attempt made to translate it nor any kind of documentation providing insight into its code. Momo is simply one among thousands of games in this situation. Or was, thanks to our translation efforts.
 
 Dave Shadoff has already compiled the more relevant information on the more technical side of the patch used to translate the game. The following is information pertaining to other aspects of the fan translation effort, primarily script lookup, extraction, and other procedures.
 
